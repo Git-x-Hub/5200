@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Payment = ({ setOpen, setMemberId, setMemberName, search }) => {
+const Contribution = ({ setOpen, setMemberId, setMemberName, search }) => {
 
     const [payment, setPayment] = useState([]);
 
@@ -64,15 +64,19 @@ const Payment = ({ setOpen, setMemberId, setMemberName, search }) => {
             <center>
                 <div class="container">
                     {filteredMembers.map(members => (
-                        <div class={`list ${members.paymentStatus === 'paid' ? ("border-green-400") : ""}`}
-                            member-id={members.memberId}
-                            onClick={(event) => { toggleModal(event); setMemberName(members.memberName); }}>
+                        <div class={`list ${members.paymentStatus === 'paid' ? ("border-green-400") : ""}`}>
                             {members.memberName}
                             <div class="mt-5">
-                                {members.paymentStatus === 'paid' ?
+                                <div class="mt-5">
+                                    <button 
+                                        class="button-green" 
+                                        member-id={members.memberId}
+                                        onClick={(event) => { toggleModal(event); setMemberName(members.memberName); }}>View</button>
+                                </div>
+                                {/* {members.paymentStatus === 'paid' ?
                                     <button type="button" class="button-red" member-id={members.memberId} onClick={(event) => paid(event, members.paymentStatus)}>Unpaid</button> :
                                     <button type="button" class="button-green" member-id={members.memberId} onClick={(event) => paid(event, members.paymentStatuss)}>Paid</button>
-                                }
+                                } */}
                             </div>
                         </div>
                     ))}
@@ -82,4 +86,4 @@ const Payment = ({ setOpen, setMemberId, setMemberName, search }) => {
     );
 }
 
-export default Payment;
+export default Contribution;

@@ -41,7 +41,7 @@ const Navbar = ({ page, setPage, search, setSearch, setIsAuthenticated }) => {
                     <div className='font-bold hidden lg:block'>|</div>
                     <div className='menu-item' onClick={() => { setPage("ATTENDANCE"); setSearch(""); }}>Attendance</div>
                     <div className='font-bold hidden lg:block'>|</div>
-                    <div className='menu-item' onClick={() => { setPage("PAYMENTS"); setSearch(""); }}>Payment</div>
+                    <div className='menu-item' onClick={() => { setPage("CONTRIBUTIONS"); setSearch(""); }}>Contributions</div>
                     <div className="hidden lg:block mx-8">
                         <input
                             type="search"

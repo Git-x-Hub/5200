@@ -44,8 +44,9 @@ model Attendance {
 
 model Payments {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId
-  amountPaid      Int?
+  amountPaid      Int
   paymentDate     DateTime    @default(now())
+  paymentMethod   String
   paymentStatus   String
   memberId        String
   members         Members     @relation(fields: [memberId], references: [id])

@@ -54,6 +54,10 @@ button {
   @apply border border-solid border-2 rounded-md border-blue-500 bg-blue-500 text-white px-3 py-1 mx-2 my-2;
 }
 
+select {
+  @apply focus:border-blue-400 border border-solid border-2 rounded-md border-gray-300 px-3 py-1 mx-2 my-2;
+}
+
 .button-red {
   @apply border border-solid border-2 rounded-md border-red-500 bg-red-500 text-white px-3 py-1 mx-2 my-2;
 }
@@ -103,7 +107,7 @@ button {
 }
 
 .list{
-  @apply cursor-pointer border-solid border-2 rounded-lg bg-slate-50 drop-shadow-md text-center text-base px-4 py-2 mx-2 my-2;
+  @apply cursor-pointer truncate border-solid border-2 rounded-lg bg-slate-50 drop-shadow-md text-center text-base pt-4 pb-4 py-2 mx-2 my-2;
 }
 
 .table {
@@ -114,7 +118,7 @@ button {
   @apply flex flex-row;
 }
 
-.table-row:nth-child(odd){
+.table-row:nth-child(even){
   @apply bg-gray-200;
 }
 

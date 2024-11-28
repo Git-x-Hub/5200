@@ -3,7 +3,7 @@ const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
-const jwt  = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -278,17 +278,21 @@ app.get('/api/attendance/:memberId', async (req, res) => {
 
 //create payment
 app.post('/api/payment', async (req, res) => {
-  const { paymentStatus, memberId } = req.body;
+  const { amountPaid, paymentMethod, memberId } = req.body;
+
   try {
     const newPayment = await prisma.payments.create({
       data: {
-        paymentStatus,
-        members: { connect: { id: memberId } }
+        amountPaid: parseInt(amountPaid, 10),
+        paymentMethod,
+        paymentStatus: 'paid',
+        members: { connect: { id: memberId } },
       },
     });
     res.status(201).json(newPayment);
   } catch (error) {
-    res.status(400).json({ error: 'Error creating member' });
+    console.error('Error adding contribution:', error);
+    res.status(400).json({ error: 'Error adding contribution' });
   }
 });
 
@@ -348,30 +352,38 @@ app.get('/api/payments/:memberId', async (req, res) => {
     const paymentRecords = await prisma.payments.findMany({
       where: { memberId },
       select: {
+        amountPaid: true,
         paymentDate: true,
-        paymentStatus: true,
+        paymentMethod: true,
       },
       orderBy: {
         paymentDate: 'desc',
       },
     });
 
-    // Group by day and pick the most recent record for each day
-    const mostRecentPerDay = Object.values(
-      paymentRecords.reduce((acc, record) => {
-        const dateKey = new Date(record.paymentDate).toISOString().split('T')[0]; // Extract the date part
-        if (!acc[dateKey]) {
-          acc[dateKey] = {
-            paymentDate: dateKey,
-            amountPaid: record.amountPaid,
-            paymentStatus: record.paymentStatus,
-          };
-        }
-        return acc;
-      }, {})
-    );
+    const formattedRecords = paymentRecords.map(record => ({
+      ...record,
+      paymentDate: record.paymentDate.toISOString().split('T')[0], // Get only the date part
+    }));
 
-    res.json(mostRecentPerDay);
+    res.json(formattedRecords);
+
+    // Group by day and pick the most recent record for each day
+    // const mostRecentPerDay = Object.values(
+    //   paymentRecords.reduce((acc, record) => {
+    //     const dateKey = new Date(record.paymentDate).toISOString().split('T')[0]; // Extract the date part
+    //     if (!acc[dateKey]) {
+    //       acc[dateKey] = {
+    //         paymentDate: dateKey,
+    //         amountPaid: record.amountPaid,
+    //         paymentStatus: record.paymentStatus,
+    //       };
+    //     }
+    //     return acc;
+    //   }, {})
+    // );
+
+    // res.json(paymentRecords);
   } catch (error) {
     console.error('Error fetching payments:', error);
     res.status(500).json({ error: 'Error fetching payments' });

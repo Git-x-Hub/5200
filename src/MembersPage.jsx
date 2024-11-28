@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Members from './Members';
 import MemberModal from './MemberModal';
 
-const MembersPage = ({search}) => {
+const MembersPage = ({search, members, setMembers}) => {
     const [memberId, setMemberId] = useState(null);
     const [isAdd, setIsAdd] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
@@ -21,6 +21,8 @@ const MembersPage = ({search}) => {
                 <Members 
                     setOpen={setOpen}
                     setIsEdit={setIsEdit}
+                    members={members}
+                    setMembers={setMembers}
                     memberId={memberId}
                     setMemberId={setMemberId}
                     search={search}/>

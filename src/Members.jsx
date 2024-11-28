@@ -1,23 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const Members = ({ setOpen, setIsEdit, setMemberId, search }) => {
-
-    const [members, setMembers] = useState([]);
-
-    useEffect(() => {
-
-        const fetchMembers = async () => {
-
-            try {
-                const response = await axios.get("http://localhost:3001/api/members");
-                setMembers(response.data);
-            } catch (error) {
-                console.error("Error fetching member!", error);
-            }
-        }
-        fetchMembers();
-    }, [members]);
+const Members = ({ setOpen, setIsEdit, members, setMemberId, search }) => {
 
     const toggleModal = (event) => {
         setOpen(true);
@@ -34,10 +17,11 @@ const Members = ({ setOpen, setIsEdit, setMemberId, search }) => {
             <center>
                 <div class="container">
                     {filteredMembers.map(members => (
-                        <div class="list"
-                            member-id={members.id}
-                            onClick={(toggleModal)}>
+                        <div class="list">
                             {members.firstName} {members.lastName}
+                            <div class="mt-5">
+                                <button member-id={members.id} onClick={toggleModal}>View</button>
+                            </div>
                         </div>
                     ))}
                 </div>
