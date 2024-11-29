@@ -118,7 +118,7 @@ select {
   @apply flex flex-row;
 }
 
-.table-row:nth-child(even){
+.table-row:nth-child(odd){
   @apply bg-gray-200;
 }
 

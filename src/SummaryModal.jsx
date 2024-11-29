@@ -41,8 +41,8 @@ const SummaryModal = ({ open, setOpen, memberId, setMemberId, memberName }) => {
                                     </tr>
                                 </thead>
                                 <tbody className="overflow-y-auto max-h-[400px]">
-                                    {payment.map((payment, index) => (
-                                        <tr key={index} className="hover:bg-gray-50">
+                                    {payment.map(payment => (
+                                        <tr className="hover:bg-gray-50">
                                             <td className="px-4 py-2 border border-gray-300">{payment.paymentDate}</td>
                                             <td className="px-4 py-2 border border-gray-300">${payment.amountPaid}</td>
                                             <td className="px-4 py-2 border border-gray-300">{payment.paymentMethod}</td>
