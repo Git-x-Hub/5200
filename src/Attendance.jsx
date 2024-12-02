@@ -68,7 +68,7 @@ const Attendance = ({ setOpen, setMemberId, setMemberName, search }) => {
     return (
         <div>
             <center>
-                <div class="container">
+                <div class="container max-h-[500px] overflow-y-scroll">
                     {filteredMembers.map(members => (
                         <div class={`list ${members.attendanceStatus === 'present' ? ("border-green-400") :
                             members.attendanceStatus === 'absent' ? ("border-red-400") :
