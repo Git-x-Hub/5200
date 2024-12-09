@@ -1,3 +1,6 @@
+# Description
+This project demonstrates the database and the frontend which helps Michalea’s choir keep track of who is in the choir and who has paid their membership. Interactive functions includes members, attendance, payment and login.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
